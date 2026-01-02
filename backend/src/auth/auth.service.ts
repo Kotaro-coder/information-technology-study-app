@@ -21,7 +21,7 @@ export class AuthService {
     }
     return user;
   }
-  //
+
   async signIn(user: User): Promise<SignInResponse> {
     const payload: JwtPayload = { email: user.email, sub: user.id };
     return {
