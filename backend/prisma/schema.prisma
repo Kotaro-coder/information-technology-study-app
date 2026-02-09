@@ -13,12 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Task {
+model Plan {
   id Int @id @default(autoincrement())
-  name String @db.VarChar(255)
-  dueDate String @db.VarChar(10)
+  title String @db.VarChar(255)
   status Status @default(NOT_STARTED)
-  description String?
+  content String?
   createdAt DateTime @default(now()) @db.Timestamp(0)
   updatedAt DateTime @updatedAt @db.Timestamp(0)
   userId Int
@@ -38,5 +37,5 @@ model User {
   password String @db.VarChar(255)
   createdAt DateTime @default(now()) @db.Timestamp(0)
   updatedAt DateTime @updatedAt @db.Timestamp(0)
-  task Task[]
+  plan Plan[]
 }

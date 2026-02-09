@@ -3,14 +3,14 @@ import { Status } from '@prisma/client';
 import { IsDateString, IsEnum, IsOptional } from 'class-validator';
 
 @InputType()
-export class UpdateTaskInput {
+export class UpdatePlanInput {
   @Field(() => Int)
   id: number;
 
   @Field({ nullable: true })
   //IsOptionalは値が存在するときのみバリデーションを行う
   @IsOptional()
-  name?: string;
+  title?: string;
 
   @Field({ nullable: true })
   @IsOptional()
@@ -23,5 +23,5 @@ export class UpdateTaskInput {
   status?: Status;
 
   @Field({ nullable: true })
-  description?: string;
+  content?: string;
 }
