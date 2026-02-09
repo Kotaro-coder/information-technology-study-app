@@ -2,7 +2,7 @@ import { Field, InputType, Int } from '@nestjs/graphql';
 import { IsDateString, IsNotEmpty } from 'class-validator';
 
 @InputType()
-export class CreateTaskInput {
+export class CreatePlanInput {
   @Field()
   @IsNotEmpty()
   name: string;
