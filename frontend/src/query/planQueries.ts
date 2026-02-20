@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-export const GET_TASKS = gql`
- query getTasks($userId: Int!) {
-    getTasks(userId: $userId) {
+export const GET_PLANS = gql`
+ query getPlans($userId: Int!) {
+    getPlans(userId: $userId) {
         id
         name
         dueDate

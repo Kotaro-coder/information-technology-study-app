@@ -15,39 +15,39 @@ import {
   Tooltip,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { Task } from "../app/types/task";
-import { TaskStatus } from "../app/types/taskStatus";
+import { Plan } from "../app/types/plan";
+import { PlanStatus } from "../app/types/planStatus";
 import { useMutation } from "@apollo/client/react";
-import { UPDATE_TASK } from "../mutations/taskMutations";
-import { GET_TASKS } from "../query/taskQueries";
+import { UPDATE_PLAN } from "../mutations/planMutations";
+import { GET_PLANS } from "../query/planQueries";
 import { useRouter } from "next/navigation";
 
-export default function EditTask({
-  task,
+export default function EditPlan({
+  plan,
   userId,
 }: {
-  task: Task;
+  plan: Plan;
   userId: number | null;
 }) {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState(task.name);
-  const [dueDate, setDueDate] = useState(task.dueDate);
-  const [status, setStatus] = useState(task.status);
-  const [description, setDescription] = useState(task.description);
+  const [name, setName] = useState(plan.name);
+  const [dueDate, setDueDate] = useState(plan.dueDate);
+  const [status, setStatus] = useState(plan.status);
+  const [description, setDescription] = useState(plan.description);
   const [isInvalidName, setIsInvalidName] = useState(false);
   const [isInvalidDueDate, setIsInvalidDueDate] = useState(false);
   const router = useRouter();
-  const [updateTask] = useMutation<{ updateTask: Task }>(UPDATE_TASK);
+  const [updatePlan] = useMutation<{ updatePlan: Plan }>(UPDATE_PLAN);
   const resetState = () => {
-    setName(task.name);
-    setDueDate(task.dueDate);
-    setStatus(task.status);
-    setDescription(task.description);
+    setName(plan.name);
+    setDueDate(plan.dueDate);
+    setStatus(plan.status);
+    setDescription(plan.description);
     setIsInvalidName(false);
     setIsInvalidDueDate(false);
-  }
+  };
 
-  const handleEditTask = async () => {
+  const handleEditPlan = async () => {
     let canEdit = true;
 
     if (name.length === 0) {
@@ -65,19 +65,19 @@ export default function EditTask({
     }
 
     if (canEdit) {
-      const updateTaskInput = {
-        id: task.id,
+      const updatePlanInput = {
+        id: plan.id,
         name,
         dueDate,
         status,
         description,
       };
       try {
-        await updateTask({
+        await updatePlan({
           variables: {
-            updateTaskInput,
+            updatePlanInput,
           },
-          refetchQueries: [{ query: GET_TASKS, variables: { userId } }],
+          refetchQueries: [{ query: GET_PLANS, variables: { userId } }],
         });
         resetState();
         setOpen(false);
@@ -89,7 +89,7 @@ export default function EditTask({
           return;
         }
 
-        alert("タスクの編集に失敗しました。");
+        alert("プランの編集に失敗しました。");
       }
     }
   };
@@ -111,19 +111,19 @@ export default function EditTask({
         </IconButton>
       </Tooltip>
       <Dialog fullWidth={true} maxWidth="sm" open={open} onClose={handleClose}>
-        <DialogTitle>Edit Task</DialogTitle>
+        <DialogTitle>Edit Plan</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             margin="normal"
             id="name"
-            label="Task Name"
+            label="Plan Name"
             fullWidth
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
             error={isInvalidName}
-            helperText={isInvalidName && "タスク名を入力してください"}
+            helperText={isInvalidName && "プラン名を入力してください"}
           />
           <TextField
             autoFocus
@@ -139,13 +139,13 @@ export default function EditTask({
             helperText={isInvalidDueDate && "日付形式で入力してください"}
           />
           <FormControl fullWidth={true} margin="normal">
-            <InputLabel id="task-status-label">Status</InputLabel>
+            <InputLabel id="plan-status-label">Status</InputLabel>
             <Select
-              labelId="task-status-label"
-              id="task-status"
+              labelId="plan-status-label"
+              id="plan-status"
               label="Status"
               value={status}
-              onChange={(e) => setStatus(e.target.value as TaskStatus)}
+              onChange={(e) => setStatus(e.target.value as PlanStatus)}
             >
               <MenuItem value={"NOT_STARTED"}>Not Started</MenuItem>
               <MenuItem value={"IN_PROGRESS"}>In Progress</MenuItem>
@@ -166,7 +166,7 @@ export default function EditTask({
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleEditTask}>Update</Button>
+          <Button onClick={handleEditPlan}>Update</Button>
         </DialogActions>
       </Dialog>
     </div>
