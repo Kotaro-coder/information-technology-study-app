@@ -5,14 +5,10 @@ import { IsDateString, IsNotEmpty } from 'class-validator';
 export class CreatePlanInput {
   @Field()
   @IsNotEmpty()
-  name: string;
-
-  @Field()
-  @IsDateString()
-  dueDate: string;
+  title: string;
 
   @Field({ nullable: true })
-  description?: string;
+  content?: string;
 
   @Field(() => Int)
   userId: number;

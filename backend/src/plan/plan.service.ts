@@ -18,18 +18,17 @@ export class PlanService {
   }
 
   async createPlan(createPlanInput: CreatePlanInput): Promise<Plan> {
-    const { name, dueDate, description, userId } = createPlanInput;
+    const { title, content, userId } = createPlanInput;
     return await this.prismaService.plan.create({
       data: {
-        name,
-        dueDate,
-        description,
+        title,
+        content,
         userId,
       },
     });
   }
 
-  async updatePlan(updatePlanInput: UpdatePlanInput): Promise<Task> {
+  async updatePlan(updatePlanInput: UpdatePlanInput): Promise<Plan> {
     const { id, title, status, content } = updatePlanInput;
     return await this.prismaService.plan.update({
       data: {
