@@ -13,15 +13,30 @@ export class UpdatePlanInput {
   title?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDateString()
-  dueDate?: string;
-
-  @Field({ nullable: true })
   @IsEnum(Status)
   @IsOptional()
   status?: Status;
 
   @Field({ nullable: true })
   content?: string;
+
+  @Field({ nullable: true })
+  @IsDateString()
+  @IsOptional()
+  plan_start_time?: Date;
+
+  @Field({ nullable: true})
+  @IsDateString()
+  @IsOptional()
+  plan_end_time?: Date;
+
+  @Field({ nullable: true })
+  @IsDateString()
+  @IsOptional()
+  work_start_time?: Date;
+
+  @Field({ nullable: true})
+  @IsDateString()
+  @IsOptional()
+  work_end_time?: Date;
 }

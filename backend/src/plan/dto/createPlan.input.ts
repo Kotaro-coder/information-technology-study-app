@@ -1,5 +1,5 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
-import { IsDateString, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 @InputType()
 export class CreatePlanInput {
@@ -9,6 +9,12 @@ export class CreatePlanInput {
 
   @Field({ nullable: true })
   content?: string;
+
+  @Field()
+  plan_start_time: Date;
+
+  @Field()
+  plan_end_time: Date;
 
   @Field(() => Int)
   userId: number;
