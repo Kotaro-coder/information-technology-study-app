@@ -9,7 +9,7 @@ export class PlanService {
   constructor(private readonly prismaService: PrismaService) {}
   async getPlans(userId: number): Promise<Plan[]> {
     // SQLを書かずにデータベース操作
-    //node_modulesでtaskテーブルにアクセスできる
+    //node_modulesでplanテーブルにアクセスできる
     return await this.prismaService.plan.findMany({
       where: {
         userId,
@@ -18,24 +18,15 @@ export class PlanService {
   }
 
   async createPlan(createPlanInput: CreatePlanInput): Promise<Plan> {
-    const { title, content, userId } = createPlanInput;
     return await this.prismaService.plan.create({
-      data: {
-        title,
-        content,
-        userId,
-      },
+      data: createPlanInput,
     });
   }
 
   async updatePlan(updatePlanInput: UpdatePlanInput): Promise<Plan> {
-    const { id, title, status, content } = updatePlanInput;
+    const { id, ...data } = updatePlanInput;
     return await this.prismaService.plan.update({
-      data: {
-        title,
-        status,
-        content,
-      },
+      data,
       where: {
         id,
       },

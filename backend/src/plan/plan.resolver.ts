@@ -11,7 +11,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 export class PlanResolver {
   constructor(private readonly planService: PlanService) {}
 
-  //TaskModelにそってデータを返す
+  //PlanModelにそってデータを返す
   @Query(() => [PlanModel], { nullable: 'items' })
   @UseGuards(JwtAuthGuard)
   async getPlans(
@@ -38,7 +38,7 @@ export class PlanResolver {
 
   @Mutation(() => PlanModel)
   @UseGuards(JwtAuthGuard)
-  async deleteTask(@Args('id', { type: () => Int }) id: number): Promise<Plan> {
+  async deletePlan(@Args('id', { type: () => Int }) id: number): Promise<Plan> {
     return await this.planService.deletePlan(id);
   }
 }
