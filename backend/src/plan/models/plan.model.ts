@@ -21,9 +21,9 @@ export class Plan {
   @Field()
   plan_end_time: Date;
 
-  @Field()
+  @Field({ nullable: true })
   work_start_time: Date;
 
-  @Field()
+  @Field({ nullable: true })
   work_end_time: Date;
 }
