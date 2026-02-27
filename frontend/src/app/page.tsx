@@ -6,13 +6,13 @@ import { useQuery } from "@apollo/client/react";
 import { Stack, Typography } from "@mui/material";
 
 import Header from "../components/Header";
-import TaskTable from "../components/TaskTable";
+import PlanTable from "../components/PlanTable";
 import Loading from "../components/Loading";
 
 import { Payload } from "./types/payload";
-import { Task } from "./types/task";
-import { GET_TASKS } from "../query/taskQueries";
-import AddTask from "../components/AddTask";
+import { Plan } from "./types/plan";
+import { GET_PLANS } from "../query/planQueries";
+import AddPlan from "../components/AddPlan";
 
 export default function Page() {
   // ✅ effect不要：初期化関数で一度だけ読む（ブラウザガード付き）
@@ -30,7 +30,7 @@ export default function Page() {
     }
   }, [token]);
 
-  const { loading, data, error } = useQuery<{ getTasks: Task[] }>(GET_TASKS, {
+  const { loading, data, error } = useQuery<{ getPlans: Plan[] }>(GET_PLANS, {
     variables: { userId: userId },
     skip: !userId,
     fetchPolicy: "network-only",
@@ -43,10 +43,10 @@ export default function Page() {
         {!token && <Typography>ログイン情報を確認中...</Typography>}
         {loading && <Loading />}
         {error && <Typography color="red">エラーが発生しました</Typography>}
-        { !loading && !error && (
+        {!loading && !error && (
           <>
-            <AddTask userId={userId}/>
-            <TaskTable tasks={data?.getTasks} userId={userId} />
+            <AddPlan userId={userId} />
+            <PlanTable plans={data?.getPlans} userId={userId} />
           </>
         )}
       </Stack>

@@ -5,16 +5,16 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Task } from "../app/types/task";
-import EditTask from "./EditTask";
-import DeleteTask from "./DeleteTask";
+import { Plan } from "../app/types/plan";
+import EditPlan from "./EditPlan";
+import DeletePlan from "./DeletePlan";
 import { Stack } from "@mui/material";
 
-export default function TaskTable({
-  tasks,
+export default function PlanTable({
+  plans,
   userId,
 }: {
-  tasks: Task[] | undefined;
+  plans: Plan[] | undefined;
   userId: number | null;
 }) {
   return (
@@ -22,27 +22,27 @@ export default function TaskTable({
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Task Name</TableCell>
+            <TableCell>Plan Name</TableCell>
             <TableCell align="right">Due Date</TableCell>
             <TableCell align="right">Status</TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {tasks?.map((task) => (
+          {plans?.map((plan) => (
             <TableRow
-              key={task.id}
+              key={plan.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {task.name}
+                {plan.name}
               </TableCell>
-              <TableCell align="right">{task.dueDate}</TableCell>
-              <TableCell align="right">{task.status}</TableCell>
+              <TableCell align="right">{plan.dueDate}</TableCell>
+              <TableCell align="right">{plan.status}</TableCell>
               <TableCell align="right">
                 <Stack spacing={2} direction='row' justifyContent='flex-end'>
-                  <EditTask task={task} userId={userId} />
-                  <DeleteTask id={task.id} userId={userId}/>
+                  <EditPlan plan={plan} userId={userId} />
+                  <DeletePlan id={plan.id} userId={userId}/>
                 </Stack>
               </TableCell>
             </TableRow>

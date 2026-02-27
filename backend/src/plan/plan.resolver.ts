@@ -2,16 +2,16 @@ import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PlanService } from './plan.service';
 import { Plan as PlanModel } from './models/plan.model';
 import { CreatePlanInput } from './dto/createPlan.input';
-import { Plan, Task } from '@prisma/client';
+import { Plan } from '@prisma/client';
 import { UpdatePlanInput } from './dto/updatePlan.input';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Resolver()
 export class PlanResolver {
-  constructor(private readonly taskService: PlanService) {}
+  constructor(private readonly planService: PlanService) {}
 
-  //TaskModelにそってデータを返す
+  //PlanModelにそってデータを返す
   @Query(() => [PlanModel], { nullable: 'items' })
   @UseGuards(JwtAuthGuard)
   async getPlans(
@@ -38,7 +38,7 @@ export class PlanResolver {
 
   @Mutation(() => PlanModel)
   @UseGuards(JwtAuthGuard)
-  async deleteTask(@Args('id', { type: () => Int }) id: number): Promise<Plan> {
+  async deletePlan(@Args('id', { type: () => Int }) id: number): Promise<Plan> {
     return await this.planService.deletePlan(id);
   }
 }

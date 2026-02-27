@@ -7,20 +7,23 @@ export class Plan {
   id: number;
 
   @Field()
-  name: string;
-
-  @Field()
-  dueDate: string;
+  title: string;
 
   @Field()
   status: Status;
 
   @Field({ nullable: true })
-  description: string;
+  content: string;
 
   @Field()
-  createdAt: Date;
+  plan_start_time: Date;
 
   @Field()
-  updatedAt: Date;
+  plan_end_time: Date;
+
+  @Field({ nullable: true })
+  work_start_time: Date;
+
+  @Field({ nullable: true })
+  work_end_time: Date;
 }
